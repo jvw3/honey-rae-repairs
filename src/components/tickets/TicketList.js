@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./tickets.css"
+import { Link } from "react-router-dom"
+import { TicketEdit } from "./TicketEdit"
 
 //The React library provides you with a function named useState() to store the state in a component. The function returns an array. The array contains the intial state value at index 0 and a function that modifies the state at index 1.
 // You deconstruct those values into two variables.
@@ -108,7 +110,7 @@ export const TicketList = ({searchTermState}) => {
 {  honeyUserObject.staff
     ?  <>
     <button onClick={ () => {setEmergency(true)}}>Emergency Only</button>
-    <button onClick={ () => {setEmergency(false)}}>Show All</button>
+    <button onClick={ () => {setEmergency(false)}}>Show All</button> 
     </> 
     // as soon as user clicks on this they will be routed to a new route in the browser.
     : <>
@@ -127,12 +129,17 @@ export const TicketList = ({searchTermState}) => {
             // HAVE TO ADD THE STATE VARIABLE OF THE NEW TICKETS.
             filteredTickets.map(ticket => {
                 return <section className="ticket">
-                        <header>${ticket.description}</header>
+                        <header>
+                            <Link to={`/tickets/${ticket.id}/edit`}>Ticket-{ticket.id}</Link>
+                            <div>{ticket.description}</div>
+                            </header>
+                            
                         <footer>Emergency: {ticket.emergency ? "yes" : "no"}</footer>
                 </section>
             })
-        }
+    }
     </article>
+    
     </>
 }
 
